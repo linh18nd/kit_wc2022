@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:kit_wc2022/src/models/football_team.dart';
@@ -13,6 +14,8 @@ class FootballMatch {
   final String awayTeamId;
   final int homeScore;
   final int awayScore;
+  final List<String> awayScorers;
+  final List<String> homeScorers;
   final DateTime localDate;
   final String timeElapsed;
   final String finished;
@@ -28,6 +31,8 @@ class FootballMatch {
     required this.awayTeamId,
     required this.homeScore,
     required this.awayScore,
+    required this.awayScorers,
+    required this.homeScorers,
     required this.localDate,
     required this.timeElapsed,
     required this.finished,
@@ -45,6 +50,8 @@ class FootballMatch {
       awayTeamId: json['away_team_id'] as String,
       homeScore: json['home_score'] as int,
       awayScore: json['away_score'] as int,
+      awayScorers: json['away_scorers'] as List<String>,
+      homeScorers: json['home_scorers'] as List<String>,
       //11/21/2022 19:00int year,
       // [int month = 1,
       // int day = 1,
@@ -77,6 +84,7 @@ class FootballMatch {
 Future<List<FootballMatch>> fetchFootballMatch() async {
   try {
     final String token = await login();
+
     final response = await http.get(
       Uri.parse('http://api.cup2022.ir/api/v1/match'),
       headers: <String, String>{
@@ -84,7 +92,9 @@ Future<List<FootballMatch>> fetchFootballMatch() async {
         'Authorization': 'Bearer $token',
       },
     );
+
     if (response.statusCode == 200) {
+      log(response.body);
       return getFootballMatch(response.body);
     } else {
       return [];

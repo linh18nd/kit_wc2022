@@ -1,12 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:kit_wc2022/src/models/football_match.dart';
 import 'package:kit_wc2022/src/ui/components/custom_app_bar.dart';
 import 'package:kit_wc2022/src/ui/screen/home_body/choose_time.dart';
+import 'package:kit_wc2022/src/ui/screen/home_body/match_details.dart';
 import 'package:kit_wc2022/src/ui/screen/home_body/no_match.dart';
 import 'package:kit_wc2022/src/ui/screen/home_screen.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'models/football_match.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

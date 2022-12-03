@@ -34,6 +34,9 @@ class ChooseTimeBar extends StatelessWidget {
               label: (i, v) => v,
             ),
             choiceStyle: C2ChipStyle.filled(
+                // foregroundColor: Colors.white,
+                // iconColor: Colors.white,
+                //color: Color.fromARGB(255, 243, 33, 212),
                 foregroundStyle: const TextStyle(fontSize: 20),
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 selectedStyle: C2ChipStyle.filled()));
