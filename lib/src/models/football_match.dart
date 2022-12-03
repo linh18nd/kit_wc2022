@@ -13,6 +13,8 @@ class FootballMatch {
   final String awayTeamId;
   final int homeScore;
   final int awayScore;
+  final String homeScorers;
+  final String awayScorers;
   final DateTime localDate;
   final String timeElapsed;
   final String finished;
@@ -28,6 +30,8 @@ class FootballMatch {
     required this.awayTeamId,
     required this.homeScore,
     required this.awayScore,
+    required this.homeScorers,
+    required this.awayScorers,
     required this.localDate,
     required this.timeElapsed,
     required this.finished,
@@ -45,6 +49,8 @@ class FootballMatch {
       awayTeamId: json['away_team_id'] as String,
       homeScore: json['home_score'] as int,
       awayScore: json['away_score'] as int,
+      homeScorers: json['home_scorers'].toString().split('[')[1].split(']')[0],
+      awayScorers: json['away_scorers'].toString().split('[')[1].split(']')[0],
       //11/21/2022 19:00int year,
       // [int month = 1,
       // int day = 1,
@@ -87,9 +93,11 @@ Future<List<FootballMatch>> fetchFootballMatch() async {
     if (response.statusCode == 200) {
       return getFootballMatch(response.body);
     } else {
+      // throw Exception('Failed to load album');
       return [];
     }
   } catch (e) {
+    // throw Exception('Failed to load album');
     return [];
   }
 }

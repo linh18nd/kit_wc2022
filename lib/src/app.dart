@@ -2,11 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:kit_wc2022/src/ui/components/custom_app_bar.dart';
-import 'package:kit_wc2022/src/ui/screen/home_body/choose_time.dart';
-import 'package:kit_wc2022/src/ui/screen/home_body/no_match.dart';
+
 import 'package:kit_wc2022/src/ui/screen/home_screen.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'models/football_match.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -17,11 +15,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: const TextTheme(
-          headlineSmall: TextStyle(
+          headline6: const TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+          ),
+          headline5: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
           ),
-          headlineMedium: TextStyle(
+          headline4: const TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+          headline3: const TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.bold,
           ),
