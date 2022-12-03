@@ -1,42 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:kit_wc2022/src/models/football_match.dart';
+import 'package:kit_wc2022/src/ui/screen/home_body/choose_time.dart';
 import 'package:kit_wc2022/src/ui/screen/home_body/match_card.dart';
-
-import '../../models/football_team.dart';
-
-FootballMatch footballMatch = FootballMatch(
-  id: '1',
-  group: Groups.A,
-  homeTeamId: '1',
-  awayTeamId: '2',
-  homeScore: 1,
-  awayScore: 2,
-  localDate: DateTime.now(),
-  timeElapsed: 'NoStart',
-  finished: 'true',
-  matchday: '1',
-  homeTeamEn: 'Russia',
-  awayTeamEn: 'Saudi Arabia',
-  homeFlag:
-      'https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
-  awayFlag:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/1200px-Flag_of_Saudi_Arabia.svg.png',
-);
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kit_wc2022/src/ui/screen/home_body/no_match.dart';
+import 'package:kit_wc2022/src/ui/uitls/constants.dart';
+import 'package:kit_wc2022/src/wc_bloc/bloc.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key, required this.footballMatchs});
-  final List<FootballMatch> footballMatchs;
+  const Home({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-      child: ListView.builder(
-          itemCount: footballMatchs.length,
-          itemBuilder: (context, index) {
-            return MatchCard(
-              match: footballMatchs[index],
-            );
-          }),
+    return BlocBuilder<WCBloc, WCState>(
+      builder: (context, state) {
+        return PageView.builder(
+          controller: PageController(
+            initialPage: kWCTime.indexOf(state.time),
+          ),
+          onPageChanged: (value) {
+            context
+                .read<WCBloc>()
+                .add(WCEventTimeChanged(time: kWCTime[value]));
+          },
+          itemCount: kWCTime.length,
+          itemBuilder: (context, index) => Container(
+            margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
+            child: state.footballMatchs.isEmpty
+                ? const NoMatch()
+                : ListView.builder(
+                    itemCount: state.footballMatchs.length,
+                    itemBuilder: (context, index) {
+                      return MatchCard(
+                        isAllDay: state.time == 'All',
+                        match: state.footballMatchs[index],
+                      );
+                    },
+                  ),
+          ),
+        );
+      },
     );
   }
 }

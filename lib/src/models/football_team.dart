@@ -1,10 +1,10 @@
-enum Groups { A, B, C, D, E, F, G, H }
+enum Groups { A, B, C, D, E, F, G, H, r16, qR, sEMI, fINAL }
 
 class Team {
   final String nameEn;
   final String flag;
   final String fifaCode;
-  final Groups group;
+  final String group;
   final String id;
   Team({
     required this.nameEn,
@@ -18,7 +18,7 @@ class Team {
       nameEn: json['name_en'] as String,
       flag: json['flag'] as String,
       fifaCode: json['fifa_code'] as String,
-      group: json['group'] as Groups,
+      group: json['group'] as String,
       id: json['id'] as String,
     );
   }

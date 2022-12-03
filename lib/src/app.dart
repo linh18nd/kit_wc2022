@@ -1,16 +1,20 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:kit_wc2022/src/ui/components/custom_app_bar.dart';
+import 'package:kit_wc2022/src/ui/screen/home_body/choose_time.dart';
+import 'package:kit_wc2022/src/ui/screen/home_body/no_match.dart';
 import 'package:kit_wc2022/src/ui/screen/home_screen.dart';
-
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'models/football_match.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.footballMatchs});
-  final List<FootballMatch> footballMatchs;
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: const TextTheme(
           headlineSmall: TextStyle(
@@ -23,12 +27,13 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: Scaffold(
-        appBar: AppBar(),
-        body: Home(
-          footballMatchs: footballMatchs,
-        ),
+      home: const Scaffold(
+        appBar: CustomAppBar(),
+        body: Home(),
       ),
+      navigatorObservers: [FlutterSmartDialog.observer],
+      // here
+      builder: FlutterSmartDialog.init(),
     );
   }
 }

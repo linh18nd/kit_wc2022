@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:kit_wc2022/src/models/football_team.dart';
 import 'package:http/http.dart' as http;
 import 'package:kit_wc2022/src/models/user.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class FootballMatch {
   final String id;
-  final Groups group;
+  final String group;
   final String homeTeamId;
   final String awayTeamId;
   final int homeScore;
@@ -38,8 +40,7 @@ class FootballMatch {
   factory FootballMatch.fromJson(Map<String, dynamic> json) {
     return FootballMatch(
       id: json['id'] as String,
-      group: Groups.values.firstWhere(
-          (element) => element.toString() == 'Groups.${json['group']}'),
+      group: json['group'] as String,
       homeTeamId: json['home_team_id'] as String,
       awayTeamId: json['away_team_id'] as String,
       homeScore: json['home_score'] as int,
@@ -74,18 +75,22 @@ class FootballMatch {
 // --header 'Authorization: Bearer <token>' \
 // --header 'Content-Type: application/json' \
 Future<List<FootballMatch>> fetchFootballMatch() async {
-  final String token = await login();
-  final response = await http.get(
-    Uri.parse('http://api.cup2022.ir/api/v1/match'),
-    headers: <String, String>{
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-  );
-  if (response.statusCode == 200) {
-    return getFootballMatch(response.body);
-  } else {
-    throw Exception('Failed to load album');
+  try {
+    final String token = await login();
+    final response = await http.get(
+      Uri.parse('http://api.cup2022.ir/api/v1/match'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      return getFootballMatch(response.body);
+    } else {
+      return [];
+    }
+  } catch (e) {
+    return [];
   }
 }
 

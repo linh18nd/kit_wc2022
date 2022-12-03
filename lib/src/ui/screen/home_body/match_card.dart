@@ -4,9 +4,13 @@ import 'package:kit_wc2022/src/models/football_match.dart';
 import 'package:date_format/date_format.dart';
 
 class MatchCard extends StatelessWidget {
-  const MatchCard({super.key, required this.match});
+  const MatchCard({
+    super.key,
+    required this.match,
+    this.isAllDay = false,
+  });
   final FootballMatch match;
-
+  final bool isAllDay;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -28,31 +32,19 @@ class MatchCard extends StatelessWidget {
           child: Column(
             children: [
               Center(
-                child: Text(
-                  'Group ${match.group.name}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Group ${match.group}',
+                    style: Theme.of(context).textTheme.headline6),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    formatDate(match.localDate, [HH, ':', nn]),
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    ' - ${match.localDate.day}/${match.localDate.month}/${match.localDate.year}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text(formatDate(match.localDate, [HH, ':', nn]),
+                      style: Theme.of(context).textTheme.headline6),
+                  isAllDay
+                      ? Text(
+                          ' - ${match.localDate.day}/${match.localDate.month}/${match.localDate.year}',
+                          style: Theme.of(context).textTheme.headline6)
+                      : const SizedBox(),
                 ],
               ),
               Row(
@@ -62,7 +54,9 @@ class MatchCard extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 25,
-                          backgroundImage: NetworkImage(match.homeFlag),
+                          backgroundImage: NetworkImage(match.homeFlag == ''
+                              ? 'https://tiengdong.com/wp-content/uploads/www_tiengdong_com-hinh-anh-dang-load-dang-tai-troll-mang-cham.jpeg'
+                              : match.homeFlag),
                         ),
                         const SizedBox(
                           height: 10,
@@ -93,7 +87,9 @@ class MatchCard extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 25,
-                          backgroundImage: NetworkImage(match.awayFlag),
+                          backgroundImage: NetworkImage(match.awayFlag == ''
+                              ? 'https://tiengdong.com/wp-content/uploads/www_tiengdong_com-hinh-anh-dang-load-dang-tai-troll-mang-cham.jpeg'
+                              : match.awayFlag),
                         ),
                         const SizedBox(
                           height: 10,
