@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kit_wc2022/src/models/football_match.dart';
-import 'package:kit_wc2022/src/ui/uitls/constants.dart';
-import 'package:kit_wc2022/src/wc_bloc/bloc.dart';
+import 'package:kit_wc2022/src/data/models/football_match.dart';
+import 'package:kit_wc2022/src/common/uitls/constants.dart';
+import 'package:kit_wc2022/src/presentation/module/home_screen/home_controller/home_controller_export.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
-class WCBloc extends Bloc<WCEvent, WCState> {
-  WCBloc()
+class HomeBloc extends Bloc<WCEvent, WCState> {
+  HomeBloc()
       : super(WCStateLoading('${DateTime.now().day}/${DateTime.now().month}')) {
     getWC();
     on<WCEventTimeChanged>(onFilter);

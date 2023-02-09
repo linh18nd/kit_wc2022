@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kit_wc2022/src/models/football_match.dart';
+import 'package:kit_wc2022/src/data/models/football_match.dart';
 import 'package:date_format/date_format.dart';
 
 class MatchDetails extends StatelessWidget {

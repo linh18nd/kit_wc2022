@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:kit_wc2022/src/models/football_match.dart';
+import 'package:kit_wc2022/src/data/models/football_match.dart';
 
 class WCState extends Equatable {
   final List<FootballMatch> footballMatchs;
